@@ -5,48 +5,48 @@
 #include<time.h>
 #include<string.h>
 
-//¹æÇâÅ°µé 
+//ë°©í–¥í‚¤ë“¤ 
 #define LEFT 75
 #define RIGHT 77
 #define DOWN 80
 #define UP 72
-//¿©±â±îÁö
+//ì—¬ê¸°ê¹Œì§€
  
-#define HEIGHT 22 //°ÔÀÓÆÇ ¼¼·Î 
-#define WIDTH 11 //°ÔÀÓÆÇ °¡·Î 
+#define HEIGHT 22 //ê²Œì„íŒ ì„¸ë¡œ 
+#define WIDTH 11 //ê²Œì„íŒ ê°€ë¡œ 
 #define SPACE 32 //hard drop
-#define ESC 27 //°ÔÀÓ Á¾·á 
-#define pause 112 //ÀÏ½ÃÁ¤Áö 
-#define PAUSE 80 //ÀÏ½ÃÁ¤Áö
-#define main_x 17 //°ÔÀÓÆÇ xÁÂÇ¥
-#define main_y 2 //°ÔÀÓÆÇ yÁÂÇ¥
+#define ESC 27 //ê²Œì„ ì¢…ë£Œ 
+#define pause 112 //ì¼ì‹œì •ì§€ 
+#define PAUSE 80 //ì¼ì‹œì •ì§€
+#define main_x 17 //ê²Œì„íŒ xì¢Œí‘œ
+#define main_y 2 //ê²Œì„íŒ yì¢Œí‘œ
 
 typedef enum { NOCURSOR, SOLIDCURSOR, NORMALCURSOR } CURSOR_TYPE;
 
-//Á¤ÀÇÇÏ´Â ÇÔ¼öµé 
-void gotoxy(int,int);//ÁÂÇ¥ÀÌµ¿ÇÔ¼ö 
-int maindraw();//¸ŞÀÎÈ­¸é 
-void drmap(int);//¸Ê ±×¸®±â 
-int playgame();//°ÔÀÓÇÔ¼ö 
-int checkMove(int,int,int,int,int);//¿·¿¡ Ã¼Å© 
-void DrBlock(int,int,int,int);//½Ç½Ã°£ ºí·Ï ±×¸®±â ÇÔ¼ö 
-void setcursortype(CURSOR_TYPE);//Ä¿¼­ Å¸ÀÔ
-int checkDown(int,int,int,int*);//¾Æ·¡Ã¼Å© 
-void DBTM(int,int,int,int);//¸Ê¿¡ ºí·Ï °íÁ¤ 
-void Brolling(int,int *,int,int);//È¸ÀüÃ¼Å© 
-void BR(int,int);//ºí·Ï ÀÜ»ó Á¦°Å 
-void LineDown(int);//¶óÀÎ ³»¸®±â ÇÔ¼ö 
-void LineCheck(int);//¶óÀÎ Å¬¸®¾î Ã¼Å© ÇÔ¼ö 
-int EndCheck();//°ÔÀÓ ¿À¹ö Ã¼Å©ÇÔ¼ö 
-void mapset();//¸Ê ÃÊ±âÈ­ ÇÔ¼ö 
-void ShowScore();//Á¡¼öÃâ·Â 
-void DrScore();//Á¡¼öÀÇ ¼øÀ§ Ãâ·Â 
-int CheckScoreInsert();//Á¡¼ö ¼øÀ§±Ç Ã¼Å© 
-//²ôÀ¿
+//ì •ì˜í•˜ëŠ” í•¨ìˆ˜ë“¤ 
+void gotoxy(int,int);//ì¢Œí‘œì´ë™í•¨ìˆ˜ 
+int maindraw();//ë©”ì¸í™”ë©´ 
+void drmap(int);//ë§µ ê·¸ë¦¬ê¸° 
+int playgame();//ê²Œì„í•¨ìˆ˜ 
+int checkMove(int,int,int,int,int);//ì˜†ì— ì²´í¬ 
+void DrBlock(int,int,int,int);//ì‹¤ì‹œê°„ ë¸”ë¡ ê·¸ë¦¬ê¸° í•¨ìˆ˜ 
+void setcursortype(CURSOR_TYPE);//ì»¤ì„œ íƒ€ì…
+int checkDown(int,int,int,int*);//ì•„ë˜ì²´í¬ 
+void DBTM(int,int,int,int);//ë§µì— ë¸”ë¡ ê³ ì • 
+void Brolling(int,int *,int,int);//íšŒì „ì²´í¬ 
+void BR(int,int);//ë¸”ë¡ ì”ìƒ ì œê±° 
+void LineDown(int);//ë¼ì¸ ë‚´ë¦¬ê¸° í•¨ìˆ˜ 
+void LineCheck(int);//ë¼ì¸ í´ë¦¬ì–´ ì²´í¬ í•¨ìˆ˜ 
+int EndCheck();//ê²Œì„ ì˜¤ë²„ ì²´í¬í•¨ìˆ˜ 
+void mapset();//ë§µ ì´ˆê¸°í™” í•¨ìˆ˜ 
+void ShowScore();//ì ìˆ˜ì¶œë ¥ 
+void DrScore();//ì ìˆ˜ì˜ ìˆœìœ„ ì¶œë ¥ 
+int CheckScoreInsert();//ì ìˆ˜ ìˆœìœ„ê¶Œ ì²´í¬ 
+//ë„ì
 void f_drmap();
 void f_mapset();
 
-//Àü¿ª º¯¼öµé 
+//ì „ì—­ ë³€ìˆ˜ë“¤ 
 char name[HEIGHT][8];
 int Score[HEIGHT];
 int score;
@@ -55,7 +55,7 @@ int f_map[HEIGHT][WIDTH];
 int flag=0;
 int BLOCK[7][4][4][4]={
 
-		//1¹øÂ° ¸ğ¾ç 
+		//1ë²ˆì§¸ ëª¨ì–‘ 
 		{{
 		{0,0,0,0},
 		{0,1,1,0},
@@ -81,7 +81,7 @@ int BLOCK[7][4][4][4]={
 		{0,0,0,0}
 		}},
 		
-		//2¹øÂ° ¸ğ¾ç 
+		//2ë²ˆì§¸ ëª¨ì–‘ 
 		{{
 		{0,0,0,0},
 		{1,1,0,0},
@@ -107,7 +107,7 @@ int BLOCK[7][4][4][4]={
 		{0,0,0,0}
 		}},
 		
-		//3¹øÂ° ¸ğ¾ç 
+		//3ë²ˆì§¸ ëª¨ì–‘ 
 		{{
 		{0,0,0,0},
 		{0,0,1,1},
@@ -133,7 +133,7 @@ int BLOCK[7][4][4][4]={
 		{0,0,0,0}
 		}},
 		
-		//4¹øÂ° ¸ğ¾ç 
+		//4ë²ˆì§¸ ëª¨ì–‘ 
 		{{
 		{0,1,0,0},
 		{0,1,0,0},
@@ -159,7 +159,7 @@ int BLOCK[7][4][4][4]={
 		{0,0,0,0}
 		}},
 		
-		//5¹øÂ° ¸ğ¾ç 
+		//5ë²ˆì§¸ ëª¨ì–‘ 
 		{{
 		{0,0,1,0},
 		{0,0,1,0},
@@ -185,7 +185,7 @@ int BLOCK[7][4][4][4]={
 		{0,0,0,0}
 		}},
 		
-		//6¹øÂ° ¸ğ¾ç 
+		//6ë²ˆì§¸ ëª¨ì–‘ 
 		{{
 		{0,0,1,0},
 		{0,1,1,1},
@@ -211,7 +211,7 @@ int BLOCK[7][4][4][4]={
 		{0,0,0,0}
 		}},
 		
-		//7¹øÂ° ¸ğ¾ç 
+		//7ë²ˆì§¸ ëª¨ì–‘ 
 		{{
 		{0,1,0,0},
 		{0,1,0,0},
@@ -257,11 +257,11 @@ void f_drmap(){
 		for(j=0;j<WIDTH;j++){
 			switch(f_map[i][j]){
 				case 1:{
-					printf("¢Ã");
+					printf("â–£");
 					break;
 				}
 				case 2:{
-					printf("¢Ì");
+					printf("â–©");
 					break;
 				}
 				case 3:{
@@ -280,9 +280,11 @@ void f_drmap(){
 
 int DE=0;
 	
-//¸ŞÀÎÇÔ¼ö 
+//ë©”ì¸í•¨ìˆ˜ 
 int main()
 {
+	SetConsoleTitle("Tetris");
+	
 	char buf[256] = { 0 };
 	sprintf(buf, "mode con: lines=%d cols=%d", 25, 90);
 	system(buf);
@@ -290,14 +292,14 @@ int main()
 	int ch=1;
 	int i;
 	
-	//Ä¿¼­ Å¸ÀÔ ÃÊ±âÈ­
+	//ì»¤ì„œ íƒ€ì… ì´ˆê¸°í™”
 	setcursortype(NOCURSOR);
 	
 	
-	//ÆÄÀÏ Æ÷ÀÎÅÍ ¼±¾ğ 
+	//íŒŒì¼ í¬ì¸í„° ì„ ì–¸ 
 	FILE* RBuf=fopen("score.txt","rt");
 	
-	//Ã³À½ Á¡¼öÆÇ ¼³Á¤ 
+	//ì²˜ìŒ ì ìˆ˜íŒ ì„¤ì • 
 	if(RBuf){
 		for(i=0;i<HEIGHT;i++){
 			fscanf(RBuf,"%s",name[i]);
@@ -311,7 +313,7 @@ int main()
 		}
 	}
 	
-	//°ÔÀÓÀÇ ÀüÃ¼ÀûÀÎ Èå¸§ 
+	//ê²Œì„ì˜ ì „ì²´ì ì¸ íë¦„ 
 	while(1){
 		if(ch==1){
 			if(maindraw()==0) return 0;
@@ -329,7 +331,7 @@ int main()
 	return 0;
 }
 
-//°ÔÀÓ ÇÃ·¹ÀÌ ÇÔ¼ö 
+//ê²Œì„ í”Œë ˆì´ í•¨ìˆ˜ 
 int playgame(){
 	
 	int i,input;
@@ -364,10 +366,10 @@ int playgame(){
 				if(kbhit()){
 					input=getch();
 					if(input==pause||input==PAUSE){
-								gotoxy(main_x,10); printf("¦£-----------------¦¤");
-								gotoxy(main_x,11); printf(" |--¢ÂÀÏ½Ã Á¤Áö¢Â---| ");
-								gotoxy(main_x,12); printf(" |--(°è¼ÓÇÏ·Á¸é p)--| ");
-								gotoxy(main_x,13); printf("¦¦-----------------¦¥");						
+								gotoxy(main_x,10); printf("â”Œ-----------------â”");
+								gotoxy(main_x,11); printf(" |--â—ˆì¼ì‹œ ì •ì§€â—ˆ---| ");
+								gotoxy(main_x,12); printf(" |--(ê³„ì†í•˜ë ¤ë©´ p)--| ");
+								gotoxy(main_x,13); printf("â””-----------------â”˜");						
 						do{	
 							input=getch();
 						}while(input!=pause&&input!=PAUSE);
@@ -391,12 +393,12 @@ int playgame(){
 								break;
 							}
 							case ESC:{
-								gotoxy(main_x+11,10); printf("¦£-----------------¦¤");
-								gotoxy(main_x+11,11); printf(" |--ESC:µ¹¾Æ°¡±â----|");
-								gotoxy(main_x+11,12); printf(" |--Enter:Á¾·á------|");
-								gotoxy(main_x+11,13); printf(" |--R:´Ù½ÃÇÏ±â------|");	
-								gotoxy(main_x+11,14); printf(" |--M:¸ŞÀÎÈ­¸é------|");
-								gotoxy(main_x+11,15); printf("¦¦-----------------¦¥");
+								gotoxy(main_x+11,10); printf("â”Œ-----------------â”");
+								gotoxy(main_x+11,11); printf(" |--ESC:ëŒì•„ê°€ê¸°----|");
+								gotoxy(main_x+11,12); printf(" |--Enter:ì¢…ë£Œ------|");
+								gotoxy(main_x+11,13); printf(" |--R:ë‹¤ì‹œí•˜ê¸°------|");	
+								gotoxy(main_x+11,14); printf(" |--M:ë©”ì¸í™”ë©´------|");
+								gotoxy(main_x+11,15); printf("â””-----------------â”˜");
 								while(1){
 									input=getch();
 									if(input==ESC){
@@ -443,12 +445,12 @@ int playgame(){
 			}
 		}
 	}
-	gotoxy(main_x+11,9);  printf("¦£-----------------¦¤");	
+	gotoxy(main_x+11,9);  printf("â”Œ-----------------â”");	
 	gotoxy(main_x+11,10); printf(" |---Game Over!-----|");
-	gotoxy(main_x+11,11); printf(" |--ESC:Á¾·á--------|");
-	gotoxy(main_x+11,12); printf(" |--R:´Ù½ÃÇÏ±â------|");
-	gotoxy(main_x+11,13); printf(" |--M:¸ŞÀÎÈ­¸é------|");
-	gotoxy(main_x+11,14); printf("¦¦-----------------¦¥");	
+	gotoxy(main_x+11,11); printf(" |--ESC:ì¢…ë£Œ--------|");
+	gotoxy(main_x+11,12); printf(" |--R:ë‹¤ì‹œí•˜ê¸°------|");
+	gotoxy(main_x+11,13); printf(" |--M:ë©”ì¸í™”ë©´------|");
+	gotoxy(main_x+11,14); printf("â””-----------------â”˜");	
 	if(CheckScoreInsert()) DrScore();				
 	while(1){
 		input=getch();
@@ -459,11 +461,11 @@ int playgame(){
 	return 0;
 }
 
-//ÇöÀç Á¡¼ö Á¡¼öÆÇ¿¡ Æ÷ÇÔ 
+//í˜„ì¬ ì ìˆ˜ ì ìˆ˜íŒì— í¬í•¨ 
 int CheckScoreInsert(){
 	
 	int i,j;
-	int ret=1;//return°ª 
+	int ret=1;//returnê°’ 
 	
 	FILE* WBuf=fopen("score.txt","wt+");
 	
@@ -479,7 +481,7 @@ int CheckScoreInsert(){
 			gotoxy(3,i+3);
 			setcursortype(NORMALCURSOR);	
 			gets(name[i]);
-			while(kbhit()) getch();//¹öÆÛ °ªÀ» ¹ö¸²
+			while(kbhit()) getch();//ë²„í¼ ê°’ì„ ë²„ë¦¼
 			setcursortype(NOCURSOR);
 			DrScore();
 			
@@ -493,12 +495,12 @@ int CheckScoreInsert(){
 	return ret;
 }
 
-//Á¡¼öÆÇ Ãâ·Â
+//ì ìˆ˜íŒ ì¶œë ¥
 void DrScore(){
 	
 	int i,j;
 	
-	//ÀüÃ¼ Á¡¼ö Ãâ·Â
+	//ì „ì²´ ì ìˆ˜ ì¶œë ¥
 	for(i=0;i<HEIGHT;i++){
 		gotoxy(1,3+i);
 		printf("%2d. %s",i+1,name[i]);
@@ -508,7 +510,7 @@ void DrScore(){
 	return;
 }
 
-//°ÔÀÓ ¿À¹ö Ã¼Å©ÇÔ¼ö
+//ê²Œì„ ì˜¤ë²„ ì²´í¬í•¨ìˆ˜
 int EndCheck(){
 	
 	int i;
@@ -518,7 +520,7 @@ int EndCheck(){
 	return 0;
 }
 
-//¶óÀÎ Å¬¸®¾î Ã¼Å© ÇÔ¼ö 
+//ë¼ì¸ í´ë¦¬ì–´ ì²´í¬ í•¨ìˆ˜ 
 void LineCheck(int y){
 	
 	int i,j,n;
@@ -538,7 +540,7 @@ void LineCheck(int y){
 	return;
 }
 
-//¶óÀÎ ³»¸®±â
+//ë¼ì¸ ë‚´ë¦¬ê¸°
 void LineDown(int i){
 	
 	int j,index;
@@ -546,15 +548,15 @@ void LineDown(int i){
 	for(;i>=0;i--){
 		for(j=1;j<WIDTH-1;j++){
 			if(i==0) map[0][j]=0;
-			else if(i==2) map[2][j]=3;//¶óÀÎÅ¬¸®¾îÃ¼Å©ÁÙ 
-			else if(i==3) map[3][j]=(map[2][j]==1)?1:0;//±× ¾Æ·¡ÁÙ 
+			else if(i==2) map[2][j]=3;//ë¼ì¸í´ë¦¬ì–´ì²´í¬ì¤„ 
+			else if(i==3) map[3][j]=(map[2][j]==1)?1:0;//ê·¸ ì•„ë˜ì¤„ 
 			else	map[i][j]=map[i-1][j];
 		}
 	}
 	return;
 }
 
-//ºí·ÏÀ» ¸Ê¿¡ ±×¸®´Â ÇÔ¼ö
+//ë¸”ë¡ì„ ë§µì— ê·¸ë¦¬ëŠ” í•¨ìˆ˜
 void DBTM(int TYPE,int SHAPE,int x,int y){
 	
 	int i,j;
@@ -568,7 +570,7 @@ void DBTM(int TYPE,int SHAPE,int x,int y){
 	return;
 }
 
-//ºí·Ï È¸Àü ÇÔ¼ö Ã¼Å© ÇÔ¼ö 
+//ë¸”ë¡ íšŒì „ í•¨ìˆ˜ ì²´í¬ í•¨ìˆ˜ 
 void Brolling(int TYPE,int *SHAPE,int x,int y){
 	
 	int i,j,index;
@@ -585,7 +587,7 @@ void Brolling(int TYPE,int *SHAPE,int x,int y){
 	return;
 }
 
-//¿òÁ÷ÀÌ´Â ºí·Ï Ãâ·Â ÇÔ¼ö 
+//ì›€ì§ì´ëŠ” ë¸”ë¡ ì¶œë ¥ í•¨ìˆ˜ 
 void DrBlock(int TYPE,int SHAPE,int x,int y){
 	
 	int i,j;
@@ -594,13 +596,13 @@ void DrBlock(int TYPE,int SHAPE,int x,int y){
 		for(j=0;j<4;j++){
 			gotoxy(main_x+x+j,y+main_y+i);
 			if(BLOCK[TYPE][SHAPE][i][j]==1)
-				printf("¢Ã");
+				printf("â–£");
 		}
 	}
 	return;
 }
 
-//¿ø·¡ÀÇ È­¸é»ó ºí·Ï Á¦°Å
+//ì›ë˜ì˜ í™”ë©´ìƒ ë¸”ë¡ ì œê±°
 void BR(int x,int y){
 	
 	int i,j;
@@ -611,7 +613,7 @@ void BR(int x,int y){
 			if(y+i-1>=0&&y+i-1<22&&j+x-1<11&&x+j-1>0)
 				switch(map[y-1+i][x-1+j]){
 					case 1:{
-						printf("¢Ã");
+						printf("â–£");
 						break;
 					}
 					case 3:{
@@ -619,7 +621,7 @@ void BR(int x,int y){
 						break;
 					}
 					case 2:{
-						printf("¢Ì");
+						printf("â–©");
 						break;
 					}
 					case 0:{
@@ -632,7 +634,7 @@ void BR(int x,int y){
 	return;
 }
 
-//¾Æ·¡ µ¿ÀÛ °¡´É Ã¼Å©ÇÔ¼ö 
+//ì•„ë˜ ë™ì‘ ê°€ëŠ¥ ì²´í¬í•¨ìˆ˜ 
 int checkDown(int TYPE,int SHAPE,int x,int *y){
 	
 	int i,j,index;
@@ -649,7 +651,7 @@ int checkDown(int TYPE,int SHAPE,int x,int *y){
 	return 1;
 }
  
-//¾ç¿· µ¿ÀÛ °¡´É Ã¼Å©ÇÔ¼ö 
+//ì–‘ì˜† ë™ì‘ ê°€ëŠ¥ ì²´í¬í•¨ìˆ˜ 
 int checkMove(int TYPE,int SHAPE,int x,int y,int d){
 	
 	int i,j,index;
@@ -665,7 +667,7 @@ int checkMove(int TYPE,int SHAPE,int x,int y,int d){
 	return 1;
 } 
 
-//¸ŞÀÎ È­¸é Ãâ·Â ÇÔ¼ö 
+//ë©”ì¸ í™”ë©´ ì¶œë ¥ í•¨ìˆ˜ 
 int maindraw(){
 	
 	int x,y;
@@ -681,28 +683,28 @@ int maindraw(){
 		gotoxy(15,20);
 		if(c%50-25==0) printf("                ");
 		if(c%100==0){
-			gotoxy(2,5);  printf("¡Ú¡Ú¡Ú¡Ú¡Ú  ¡Ú¡Ú¡Ú¡Ú  ¡Ú¡Ú¡Ú¡Ú¡Ú  ¡Ú¡Ú¡Ú¡Ú¡Ú      ¡Ú¡Ú¡Ú¡Ú¡Ú    ¡Ú¡Ú¡Ú  ");
-			gotoxy(2,6);  printf("    ¡Ú      ¡Ú            ¡Ú      ¡Ú¡Ú    ¡Ú¡Ú        ¡Ú      ¡Ú¡Ú  ¡Ú¡Ú");
-			gotoxy(2,7);  printf("    ¡Ú      ¡Ú            ¡Ú      ¡Ú¡Ú      ¡Ú        ¡Ú      ¡Ú      ¡Ú");
-			gotoxy(2,8);  printf("    ¡Ú      ¡Ú            ¡Ú      ¡Ú¡Ú      ¡Ú        ¡Ú        ¡Ú      ");
-			gotoxy(2,9);  printf("    ¡Ú      ¡Ú¡Ú¡Ú¡Ú      ¡Ú      ¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú        ¡Ú        ¡Ú¡Ú    ");
-			gotoxy(2,10); printf("    ¡Ú      ¡Ú¡Ú¡Ú¡Ú      ¡Ú      ¡Ú¡Ú  ¡Ú¡Ú          ¡Ú          ¡Ú¡Ú  ");
-			gotoxy(2,11); printf("    ¡Ú      ¡Ú            ¡Ú      ¡Ú¡Ú    ¡Ú¡Ú        ¡Ú            ¡Ú¡Ú");
-			gotoxy(2,12); printf("    ¡Ú      ¡Ú            ¡Ú      ¡Ú¡Ú    ¡Ú¡Ú        ¡Ú      ¡Ú      ¡Ú");
-			gotoxy(2,13); printf("    ¡Ú      ¡Ú            ¡Ú      ¡Ú¡Ú      ¡Ú¡Ú      ¡Ú      ¡Ú¡Ú  ¡Ú¡Ú");
-			gotoxy(2,14); printf("    ¡Ú      ¡Ú¡Ú¡Ú¡Ú      ¡Ú      ¡Ú¡Ú      ¡Ú¡Ú  ¡Ú¡Ú¡Ú¡Ú¡Ú    ¡Ú¡Ú¡Ú  ");
+			gotoxy(2,5);  printf("â˜…â˜…â˜…â˜…â˜…  â˜…â˜…â˜…â˜…  â˜…â˜…â˜…â˜…â˜…  â˜…â˜…â˜…â˜…â˜…      â˜…â˜…â˜…â˜…â˜…    â˜…â˜…â˜…  ");
+			gotoxy(2,6);  printf("    â˜…      â˜…            â˜…      â˜…â˜…    â˜…â˜…        â˜…      â˜…â˜…  â˜…â˜…");
+			gotoxy(2,7);  printf("    â˜…      â˜…            â˜…      â˜…â˜…      â˜…        â˜…      â˜…      â˜…");
+			gotoxy(2,8);  printf("    â˜…      â˜…            â˜…      â˜…â˜…      â˜…        â˜…        â˜…      ");
+			gotoxy(2,9);  printf("    â˜…      â˜…â˜…â˜…â˜…      â˜…      â˜…â˜…â˜…â˜…â˜…â˜…        â˜…        â˜…â˜…    ");
+			gotoxy(2,10); printf("    â˜…      â˜…â˜…â˜…â˜…      â˜…      â˜…â˜…  â˜…â˜…          â˜…          â˜…â˜…  ");
+			gotoxy(2,11); printf("    â˜…      â˜…            â˜…      â˜…â˜…    â˜…â˜…        â˜…            â˜…â˜…");
+			gotoxy(2,12); printf("    â˜…      â˜…            â˜…      â˜…â˜…    â˜…â˜…        â˜…      â˜…      â˜…");
+			gotoxy(2,13); printf("    â˜…      â˜…            â˜…      â˜…â˜…      â˜…â˜…      â˜…      â˜…â˜…  â˜…â˜…");
+			gotoxy(2,14); printf("    â˜…      â˜…â˜…â˜…â˜…      â˜…      â˜…â˜…      â˜…â˜…  â˜…â˜…â˜…â˜…â˜…    â˜…â˜…â˜…  ");
 		}
 		if(c%100-50==0){
-			gotoxy(2,5);  printf("¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú");
-			gotoxy(2,6);  printf("¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú");
-			gotoxy(2,7);  printf("¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú");
-			gotoxy(2,8);  printf("¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú");
-			gotoxy(2,9);  printf("¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú");
-			gotoxy(2,10); printf("¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú");
-			gotoxy(2,11); printf("¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú");
-			gotoxy(2,12); printf("¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú");
-			gotoxy(2,13); printf("¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú");
-			gotoxy(2,14); printf("¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú");			
+			gotoxy(2,5);  printf("â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…");
+			gotoxy(2,6);  printf("â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…");
+			gotoxy(2,7);  printf("â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…");
+			gotoxy(2,8);  printf("â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…");
+			gotoxy(2,9);  printf("â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…");
+			gotoxy(2,10); printf("â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…");
+			gotoxy(2,11); printf("â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…");
+			gotoxy(2,12); printf("â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…");
+			gotoxy(2,13); printf("â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…");
+			gotoxy(2,14); printf("â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…â˜…");			
 		}
 		Sleep(10);
 		c++;
@@ -714,7 +716,7 @@ int maindraw(){
 	else return 1;
 }
 
-//Á¡¼ö¸¦ º¸¿©ÁÜ 
+//ì ìˆ˜ë¥¼ ë³´ì—¬ì¤Œ 
 void ShowScore(){
 	
 	gotoxy(main_x+11,6+main_y);
@@ -723,7 +725,7 @@ void ShowScore(){
 	return;
 }
 
-//¸Ê+ºí·Ï ±×¸®±â 
+//ë§µ+ë¸”ë¡ ê·¸ë¦¬ê¸° 
 void drmap(int NEXT_TYPE){
 	
 	int i,j;
@@ -735,11 +737,11 @@ void drmap(int NEXT_TYPE){
 		for(j=0;j<WIDTH;j++){
 			switch(map[i][j]){
 				case 1:{
-					printf("¢Ã");
+					printf("â–£");
 					break;
 				}
 				case 2:{
-					printf("¢Ì");
+					printf("â–©");
 					break;
 				}
 				case 3:{
@@ -756,7 +758,7 @@ void drmap(int NEXT_TYPE){
 	for(i=0;i<6;i++){
 		gotoxy(main_x+11,2+i);
 		for(j=0;j<5;j++){
-			if(i==0||i==5||j==4) printf("¢Ì");
+			if(i==0||i==5||j==4) printf("â–©");
 			else
 				switch(BLOCK[NEXT_TYPE][0][i-1][j]){
 					case 0:{
@@ -764,7 +766,7 @@ void drmap(int NEXT_TYPE){
 						break;
 					}
 					case 1:{
-					printf("¢Ã");
+					printf("â–£");
 					break;
 					}				
 				}
@@ -774,7 +776,7 @@ void drmap(int NEXT_TYPE){
 	return;
 }
 
-//¸Ê ÃÊ±âÈ­ ÇÔ¼ö 
+//ë§µ ì´ˆê¸°í™” í•¨ìˆ˜ 
 void mapset(){
 	
 	int i,j;
@@ -793,7 +795,7 @@ void mapset(){
 	return;
 }
 
-//ÁÂÇ¥ÀÌµ¿ÇÔ¼ö 
+//ì¢Œí‘œì´ë™í•¨ìˆ˜ 
 void gotoxy(int x,int y) {
 
     COORD pos={2*x,y};
@@ -802,7 +804,7 @@ void gotoxy(int x,int y) {
 
 }
 
-//Ä¿¼­ Å¸ÀÔ º¯È¯ ÇÔ¼ö 
+//ì»¤ì„œ íƒ€ì… ë³€í™˜ í•¨ìˆ˜ 
 void setcursortype(CURSOR_TYPE c){
 	
 	CONSOLE_CURSOR_INFO CurInfo;
