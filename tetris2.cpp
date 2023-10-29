@@ -96,6 +96,8 @@ int EndGame();
 
 int main()
 {
+	SetConsoleTitle("Tetris2");
+	
 	char buf[256] = { 0 };
 	sprintf(buf, "mode con: lines=%d cols=%d", 25, 80);
 	system(buf);
@@ -162,8 +164,8 @@ GAME:
 		for (Fx = 0; Fx<6; Fx++) {
 			for (Fy = -1; Fy<6; Fy++) {
 				gotoxy(mapX + WIDTH + Fx, mapY + Fy + 1);
-				if (Fx == 5 || Fy == -1 || Fy == 5) printf("��");
-				else if (BLOCK[NextTYPE][Fy][Fx] == 1) printf("��");
+				if (Fx == 5 || Fy == -1 || Fy == 5) printf("¢Ë");
+				else if (BLOCK[NextTYPE][Fy][Fx] == 1) printf("¢Ã");
 				else printf("  ");
 			}
 		}
@@ -184,11 +186,11 @@ GAME:
 					ch = getch();
 					if (ch != 224) {
 						if (ch == pause || ch == Pause) {
-							gotoxy(mapX + 11, 12); printf("��------------��");
-							gotoxy(mapX + 11, 13); printf("��            ��");
-							gotoxy(mapX + 11, 14); printf("��  <pause>   ��");
-							gotoxy(mapX + 11, 15); printf("��            ��");
-							gotoxy(mapX + 11, 16); printf("��------------��");
+							gotoxy(mapX + 11, 12); printf("¦£------------¦¤");
+							gotoxy(mapX + 11, 13); printf("¦¢            ¦¢");
+							gotoxy(mapX + 11, 14); printf("¦¢  <pause>   ¦¢");
+							gotoxy(mapX + 11, 15); printf("¦¢            ¦¢");
+							gotoxy(mapX + 11, 16); printf("¦¦------------¦¥");
 							ch = 0;
 							while (ch != pause && ch != Pause)	ch = getch();
 							gotoxy(mapX + 11, 12); printf("                ");
@@ -198,12 +200,12 @@ GAME:
 							gotoxy(mapX + 11, 16); printf("                ");
 						}
 						if (ch == ESC) {
-							gotoxy(mapX + 11, mapY + 9);  printf("��------------------��");
-							gotoxy(mapX + 11, mapY + 10); printf("��      <ESC>       ��");
-							gotoxy(mapX + 11, mapY + 11); printf("��   Resume         ��");
-							gotoxy(mapX + 11, mapY + 12); printf("��   Restart        ��");
-							gotoxy(mapX + 11, mapY + 13); printf("��   Back to main   ��");
-							gotoxy(mapX + 11, mapY + 14); printf("��------------------��");
+							gotoxy(mapX + 11, mapY + 9);  printf("¦£------------------¦¤");
+							gotoxy(mapX + 11, mapY + 10); printf("¦¢      <ESC>       ¦¢");
+							gotoxy(mapX + 11, mapY + 11); printf("¦¢   Resume         ¦¢");
+							gotoxy(mapX + 11, mapY + 12); printf("¦¢   Restart        ¦¢");
+							gotoxy(mapX + 11, mapY + 13); printf("¦¢   Back to main   ¦¢");
+							gotoxy(mapX + 11, mapY + 14); printf("¦¦------------------¦¥");
 							ch = 0;
 							int p;
 							while (1) {
@@ -315,15 +317,15 @@ void mapInitialize() {
 	return;
 }
 void drawTetris(int x, int y) {
-	gotoxy(x, y); 	  printf("�âââââ�  �âââââ�  �âââââ�  �ââ�        �â�    �ââââ�");
-	gotoxy(x, y + 1); printf("    �â�      �â�              �â�      �â� �â�     �â�   �âââ�   ");
-	gotoxy(x, y + 2); printf("    �â�      �â�              �â�      �â�    ��          �ââ�      ");
-	gotoxy(x, y + 3); printf("    �â�      �â�              �â�      �â�     ��   �â�  �âââ�    ");
-	gotoxy(x, y + 4); printf("    �â�      �ââââ�        �â�      �â�  �â�    �â�   �âââ�   ");
-	gotoxy(x, y + 5); printf("    �â�      �â�              �â�      �ââ�        �â�     �âââ� ");
-	gotoxy(x, y + 6); printf("    �â�      �â�              �â�      �â� �â�     �â�      �âââ�");
-	gotoxy(x, y + 7); printf("    �â�      �â�              �â�      �â�   �â�   �â�     �âââ� ");
-	gotoxy(x, y + 8); printf("    �â�      �âââââ�      �â�      �â�      ��  �â�  �ââââ�  ");
+	gotoxy(x, y); 	  printf("¢Ã¢Ã¢Ã¢Ã¢Ã¢Ã  ¢Ã¢Ã¢Ã¢Ã¢Ã¢Ã  ¢Ã¢Ã¢Ã¢Ã¢Ã¢Ã  ¢Ã¢Ã¢Ã        ¢Ã¢Ã    ¢Ã¢Ã¢Ã¢Ã¢Ã");
+	gotoxy(x, y + 1); printf("    ¢Ã¢Ã      ¢Ã¢Ã              ¢Ã¢Ã      ¢Ã¢Ã ¢Ã¢Ã     ¢Ã¢Ã   ¢Ã¢Ã¢Ã¢Ã   ");
+	gotoxy(x, y + 2); printf("    ¢Ã¢Ã      ¢Ã¢Ã              ¢Ã¢Ã      ¢Ã¢Ã    ¢Ã          ¢Ã¢Ã¢Ã      ");
+	gotoxy(x, y + 3); printf("    ¢Ã¢Ã      ¢Ã¢Ã              ¢Ã¢Ã      ¢Ã¢Ã     ¢Ã   ¢Ã¢Ã  ¢Ã¢Ã¢Ã¢Ã    ");
+	gotoxy(x, y + 4); printf("    ¢Ã¢Ã      ¢Ã¢Ã¢Ã¢Ã¢Ã        ¢Ã¢Ã      ¢Ã¢Ã  ¢Ã¢Ã    ¢Ã¢Ã   ¢Ã¢Ã¢Ã¢Ã   ");
+	gotoxy(x, y + 5); printf("    ¢Ã¢Ã      ¢Ã¢Ã              ¢Ã¢Ã      ¢Ã¢Ã¢Ã        ¢Ã¢Ã     ¢Ã¢Ã¢Ã¢Ã ");
+	gotoxy(x, y + 6); printf("    ¢Ã¢Ã      ¢Ã¢Ã              ¢Ã¢Ã      ¢Ã¢Ã ¢Ã¢Ã     ¢Ã¢Ã      ¢Ã¢Ã¢Ã¢Ã");
+	gotoxy(x, y + 7); printf("    ¢Ã¢Ã      ¢Ã¢Ã              ¢Ã¢Ã      ¢Ã¢Ã   ¢Ã¢Ã   ¢Ã¢Ã     ¢Ã¢Ã¢Ã¢Ã ");
+	gotoxy(x, y + 8); printf("    ¢Ã¢Ã      ¢Ã¢Ã¢Ã¢Ã¢Ã¢Ã      ¢Ã¢Ã      ¢Ã¢Ã      ¢Ã  ¢Ã¢Ã  ¢Ã¢Ã¢Ã¢Ã¢Ã  ");
 	return;
 }
 void Intro() {
@@ -369,10 +371,10 @@ int mainDraw(int ch) {
 			gotoxy(x + 11, ch + y + 13);
 			printf(" >");
 			if (ch == 0) {
-				gotoxy(x + 17, y + 13); printf("��-------------------- ��");
-				gotoxy(x + 17, y + 14); printf("��    Single Play      ��");
-				gotoxy(x + 17, y + 15); printf("��    Local MultiPlay  ��");
-				gotoxy(x + 17, y + 16); printf("��-------------------- ��");
+				gotoxy(x + 17, y + 13); printf("¦£-------------------- ¦¤");
+				gotoxy(x + 17, y + 14); printf("¦¢    Single Play      ¦¢");
+				gotoxy(x + 17, y + 15); printf("¦¢    Local MultiPlay  ¦¢");
+				gotoxy(x + 17, y + 16); printf("¦¦-------------------- ¦¥");
 				while (1) {
 					gotoxy(x + 18, y + 14); printf(" >");
 					ch = getch();
@@ -405,7 +407,7 @@ void records() {
 	}
 	for (i = 0; i<22; i++) {
 		gotoxy(15, i);
-		printf("��");
+		printf("¦¢");
 	}
 	for (i = 0; i<40; i++) {
 		gotoxy(i, 22);
@@ -490,9 +492,9 @@ void drawMap() {
 		gotoxy(mapX, mapY + y);
 		for (x = 0; x<WIDTH; x++) {
 			if (map[y][x] == 3) MAP[y][x]="--";
-			else if (map[y][x] == 2) MAP[y][x]="��";
+			else if (map[y][x] == 2) MAP[y][x]="¢Ë";
 			else if (map[y][x] == 0) MAP[y][x]="  ";
-			else 			 MAP[y][x]="��";
+			else 			 MAP[y][x]="¢Ã";
 		}
 	}
 
@@ -530,7 +532,7 @@ void drawBlock(int x, int y, int cblock[5][5]) {
 			if (y + i<HEIGHT - 1 && x + j>0 && x + j<WIDTH - 1) {
 				if (cblock[i][j]) {
 					gotoxy(mapX + x + j, mapY + y + i);
-					printf("��");
+					printf("¢Ã");
 				}
 			}
 		}
@@ -544,7 +546,7 @@ void removeBlock(int x, int y) {
 			if (y + i<HEIGHT - 1 && y + i>-1 && x + j>0 && x + j<WIDTH - 1) {
 				if (map[y + i][x + j] == 3) removeSP[i][j]="--";
 				else if (map[y + i][x + j] == 0) removeSP[i][j]="  ";
-				else 			 removeSP[i][j]="��";
+				else 			 removeSP[i][j]="¢Ã";
 			}
 		}
 	}
@@ -653,13 +655,13 @@ void checkScore(int score) {
 }
 int EndGame() {
 	int x = -1, y = 10;
-	gotoxy(mapX + x, mapY + y);   printf("��----------------------- ��");
-	gotoxy(mapX + x, mapY + y + 1); printf("��      Game  over!       ��");
-	gotoxy(mapX + x, mapY + y + 2); printf("��                        ��");
-	gotoxy(mapX + x, mapY + y + 3); printf("��       Retry            ��");
-	gotoxy(mapX + x, mapY + y + 4); printf("��       Back to main     ��");
-	gotoxy(mapX + x, mapY + y + 5); printf("��       Exit             ��");
-	gotoxy(mapX + x, mapY + y + 6); printf("��----------------------- ��");
+	gotoxy(mapX + x, mapY + y);   printf("¦£----------------------- ¦¤");
+	gotoxy(mapX + x, mapY + y + 1); printf("¦¢      Game  over!       ¦¢");
+	gotoxy(mapX + x, mapY + y + 2); printf("¦¢                        ¦¢");
+	gotoxy(mapX + x, mapY + y + 3); printf("¦¢       Retry            ¦¢");
+	gotoxy(mapX + x, mapY + y + 4); printf("¦¢       Back to main     ¦¢");
+	gotoxy(mapX + x, mapY + y + 5); printf("¦¢       Exit             ¦¢");
+	gotoxy(mapX + x, mapY + y + 6); printf("¦¦----------------------- ¦¥");
 	int p;
 	int ch = 0;
 	while (1) {
